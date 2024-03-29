@@ -41,7 +41,7 @@
 В API реализован CRUD для моделей поставщика через generics:
 - ```members/create/``` 
 - ```members/update/pk/``` 
-- ```members/delete/``` 
+- ```members/delete/pk/``` 
 - ```members/update/pk/```
 - 
 и продукта через viewsets:
