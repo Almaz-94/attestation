@@ -24,10 +24,4 @@ class FactoryValidator:
             raise ValidationError(f'У завода не может быть задолженности перед поставщиком')
 
 
-# class SupplierValidator:
-#     def __call__(self, value):
-#         sup = dict(value).get('supplier').pk
-#         member_id = self.kwargs['pk']
-#         print(sup, member_id, value)
-#         if sup == member_id:
-#             raise ValidationError(f'Нельзя указывать самого себя как своего поставщика')
+

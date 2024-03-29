@@ -9,7 +9,7 @@ class MemberForm(forms.ModelForm):
     """ Форма компании в админ панели с валидацией """
     class Meta:
         model = Member
-        fields = '__all__' #['member_type', 'is_factory', 'supplier', 'supplier_debt']
+        fields = '__all__'
         def clean(self):
             mem_type = self.cleaned_data.get('member_type')
             is_fac = self.cleaned_data.get('is_factory')

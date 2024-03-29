@@ -26,6 +26,6 @@ class MemberUpdateSerializer(ModelSerializer):
         validators = [FactoryValidator('member_type', 'is_factory', 'supplier', 'supplier_debt') ]
 
     def validate_supplier(self, value):
-        if self.instance.pk == value.pk:
+        if self.instance.pk == value.pk and value:
             raise ValidationError('Компания не может быть своим же поставщиком')
         return value

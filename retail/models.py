@@ -35,8 +35,8 @@ class Member(models.Model):
             raise ValidationError(f'У завода не может быть поставщика')
         elif self.is_factory and self.member_type == 0 and self.supplier_debt:
             raise ValidationError(f'У завода не может быть задолженности перед поставщиком')
-        if self.supplier == self.pk:
-            raise ValidationError(f'Нельзя указывать самого себя как своего поставщика')
+        if self.supplier == self.pk and self.supplier:
+            raise ValidationError(f'Компания не может быть своим же поставщиком')
 
     def __str__(self):
         return f'{self.name}, id: {self.pk}'
