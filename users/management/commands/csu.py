@@ -6,6 +6,7 @@ from users.models import User
 
 
 class Command(BaseCommand):
+    """ Комманда для создания суперпользователя """
 
     def handle(self, *args, **options):
 

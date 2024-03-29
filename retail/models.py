@@ -2,8 +2,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 NULLABLE = {'null':True, 'blank':True}
-class Member(models.Model):
 
+
+class Member(models.Model):
+    """ Модель компании с валидацией данных для админ панели"""
     COMPANY_TYPES = (
         (0, "завод"),
         (1, "розничная сеть"),
@@ -24,7 +26,7 @@ class Member(models.Model):
     supplier = models.ForeignKey('self', on_delete=models.SET_NULL, verbose_name='поставщик', **NULLABLE)
 
     def clean(self):
-
+        """ Валидация данных компании для админ панели """
         if self.is_factory and self.member_type != 0:
             raise ValidationError(f'Только завод может отмечать поле "is_factory"')
         elif not self.is_factory and self.member_type == 0:
@@ -37,7 +39,7 @@ class Member(models.Model):
             raise ValidationError(f'Нельзя указывать самого себя как своего поставщика')
 
     def __str__(self):
-        return f'Company {self.name}, contact email: {self.email}'
+        return f'{self.name}, id: {self.pk}'
 
     class Meta:
         verbose_name = 'член сети'

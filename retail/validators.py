@@ -2,6 +2,7 @@ from rest_framework.exceptions import ValidationError
 
 
 class FactoryValidator:
+    """ Валидатор, проверяющий корректность вводимых данных компании """
     def __init__(self, member_type, is_factory, supplier, supplier_debt):
         self.member_type = member_type
         self.is_factory = is_factory
@@ -23,10 +24,10 @@ class FactoryValidator:
             raise ValidationError(f'У завода не может быть задолженности перед поставщиком')
 
 
-class SupplierValidator:
-    def __call__(self, value):
-        sup = dict(value).get('supplier')
-        member_id = dict(value).get('id')
-        print(sup, member_id)
-        if sup == member_id:
-            raise ValidationError(f'Нельзя указывать самого себя как своего поставщика')
+# class SupplierValidator:
+#     def __call__(self, value):
+#         sup = dict(value).get('supplier').pk
+#         member_id = self.kwargs['pk']
+#         print(sup, member_id, value)
+#         if sup == member_id:
+#             raise ValidationError(f'Нельзя указывать самого себя как своего поставщика')

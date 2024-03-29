@@ -6,6 +6,7 @@ from retail.models import Member
 
 
 class MemberForm(forms.ModelForm):
+    """ Форма компании в админ панели с валидацией """
     class Meta:
         model = Member
         fields = '__all__' #['member_type', 'is_factory', 'supplier', 'supplier_debt']
@@ -26,16 +27,19 @@ class MemberForm(forms.ModelForm):
 
 @admin.register(Member)
 class MemberModelAdmin(admin.ModelAdmin):
+    """ Представление компании в админ панели с возможностью гашения долгов """
     form = MemberForm
     list_display = ('id', 'name', 'city', 'member_type', 'supplier_url', 'supplier_debt')
-    list_filter = ('country',)
-    actions = ['nullify_debt']
+    list_filter = ('city',)
+    actions = ['reset_debt']
 
 
-    def nullify_debt(self, request, queryset):
+    def reset_debt(self, request, queryset):
+        """ Админ-действие гасящее долг компании """
         queryset.update(supplier_debt=0)
 
     def supplier_url(self, obj):
+        """ Реализация гиперссылки на профиль поставщика компании """
         supplier = obj.supplier
         try:
             url = f'{supplier.id}/change/'
